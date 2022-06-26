@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<script>
+  function onSubmitNewCountry() {
+    var iframe = document.getElementById("dummyframe");
+    frame = iframe.contentDocument;
+    while (frame.lastChild.lastChild) {
+      frame = frame.lastChild;
+    }
+    response = frame.innerHTML;
+
+    if (response === "1") {
+      res = document.getElementById("responseDiv");
+      res.innerText = "Country successfully added!"
+    } else if (response === "0") {
+      res = document.getElementById("responseDiv");
+      res.innerText = "Error while trying to add the country!"
+    }
+
+
+  }
+</script>
+
+
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<form action="/api/NewCountry" method="post" target="dummyframe" onsubmit="onSubmitNewCountry()">
+  <label for="name">Country name:</label><br>
+  <input type="text" id="name" name="name" value="Wonderland" required><br><br>
+  <input type="submit" value="Submit">
+</form>
+<div id="responseDiv"></div>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<script>
+    function loadSelector() {
+        fetch('http://localhost/api/GetAllCountries')
+            .then(response => response.json())
+            .then(data => parseSelectorResponse(data));
+
+    }
+    function parseSelectorResponse(data) {
+        let select = document.getElementById("countryId");
+        let options = "";
+        data.forEach(element => {
+            options = options + "\n<option value=" + '"' + element[0] + '">' + element[1] + "</option>";
+        });
+        select.innerHTML = options;
+    }
+    function onSubmitNewClient() {
+        var iframe = document.getElementById("dummyframe");
+
+        res = document.getElementById("responseDiv");
+        frame = iframe.contentDocument;
+        while (frame.lastChild.lastChild) {
+            frame = frame.lastChild;
+        }
+        response = frame.innerHTML;
+
+        if (response === "1") {
+            res.innerText = "Client successfully added!"
+        } else if (response === "0") {
+            res.innerText = "Error while trying to add the client!"
+        }
+
+
+    }
+</script>
+
+<form action="/api/NewClient" method="post" target="dummyframe" onsubmit="onSubmitNewClient()">
+    <label for=" name">Client name:</label><br>
+    <input type="text" id="name" name="name" value="John Doe" required><br>
+    <label for="phone">Phone:</label><br>
+    <input type="text" id="phone" name="phone" value="12345678"><br>
+    <label for="countryId">Select country</label><br>
+    <select name="countryId" id="countryId"></select><br><br>
+    <input type="submit" value="Submit">
+</form>
+<iframe name="dummyframe" id="dummyframe" style="display: none;" onload="loadSelector()"></iframe>
+<div id="responseDiv">

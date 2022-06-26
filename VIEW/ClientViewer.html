@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<script>
+
+    async function loadResponse() {
+        var iframe = document.getElementById("dummyframe");
+
+        res = document.getElementById("responseDiv");
+        frame = iframe.contentDocument;
+        while (frame.lastChild.lastChild) {
+            frame = frame.lastChild;
+        }
+        response = frame.innerHTML;
+        try {
+            jsonRes = JSON.parse(response);
+        } catch (error) {
+            return;
+        }
+        console.log(jsonRes);
+        if (jsonRes !== 0) {
+            countryName = await getCountryName(jsonRes.id);
+            nameHeader = "<h1>" + jsonRes.name + "</h1>\n";
+            phoneHeader = "<p> Phone: " + jsonRes.phone + "</p>\n";
+            countryHeader = "<p> Country: " + countryName + "</p>";
+
+            res.innerHTML = nameHeader + phoneHeader + countryHeader;
+        } else {
+            res.innerText = "Client does not exists!"
+        }
+
+    }
+    async function getCountryName(id) {
+        let name;
+        await fetch('http://localhost/api/GetCountry?id=' + jsonRes.countryId)
+            .then(response => response.json())
+            .then(data => name = data.name);
+        return name;
+    }
+</script>
+
+<form action="/api/GetClient" method="get" target="dummyframe">
+    <label for="id">Client id:</label><br>
+    <input type="text" id="id" name="id" value="0" required><br><br>
+    <input type="submit" value="Submit">
+</form>
+<iframe name="dummyframe" id="dummyframe" style="display: none;" onload="loadResponse()"></iframe>
+<div id="responseDiv">
