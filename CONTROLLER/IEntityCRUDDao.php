@@ -1,10 +1,10 @@
 <?php
 
-interface IEntityCRUDDao
+abstract class IEntityCRUDDao
 {
-    public function getFromId(int $id);
-    public function delete(int $id);
+    public abstract function getFromId(int $id);
+    public abstract function delete(int $id);
     //$object should be any DTO!
-    public function save(object $object);
-    public function update(object $object);
+    public abstract function save(object $object): bool;
+    public abstract function update(object $object);
 }

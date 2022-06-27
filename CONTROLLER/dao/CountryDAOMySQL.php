@@ -1,6 +1,6 @@
 <?php
 
-class CountryDAOMySQL implements IEntityCRUDDao
+class CountryDAOMySQL extends IEntityCRUDDao
 {
     /**
      * @var mysqli

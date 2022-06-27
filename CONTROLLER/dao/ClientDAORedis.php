@@ -1,6 +1,6 @@
 <?php
 
-class ClientDAORedis implements IEntityCRUDDao
+class ClientDAORedis extends IEntityCRUDDao
 {
     /** @var Redis */
     private $dbConnection;
@@ -24,7 +24,7 @@ class ClientDAORedis implements IEntityCRUDDao
         return new ClientDTO($id, $value->name, $value->phone, (int)$value->countryId);
     }
 
-    public function save(IClientDTO $client)
+    public function save(IClientDTO $client): bool
     {
         sem_acquire($this->mutex);
         $client = FactoryClient::createFromJson([
@@ -36,6 +36,7 @@ class ClientDAORedis implements IEntityCRUDDao
         $this->dbConnection->set(self::KEY_PREFIX . ($this->getLastClientId() + 1), $client->jsonSerialize());
         $this->dbConnection->incr(self::LAST_ID);
         sem_release($this->mutex);
+        return true;
     }
 
     private function getLastClientId(): int

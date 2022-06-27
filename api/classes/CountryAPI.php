@@ -10,25 +10,21 @@ class CountryAPI
     }
     function get(int $id): ?ICountryDTO
     {
-        $service = new CountryService();
-        return $service->getCountryFromId($id);
+        return $this->service->getCountryFromId($id);
     }
     function save(string $name): bool
     {
-        $service = new CountryService();
-        return $service->saveCountry([
+        return $this->service->saveCountry([
             "name" => $name
         ]);
     }
     function delete(int $id)
     {
-        $service = new CountryService();
-        $service->delete($id);
+        $this->service->delete($id);
     }
     function update(int $id, string $name)
     {
-        $service = new CountryService();
-        $service->update([
+        $this->service->update([
             "id" => $id,
             "name" => $name,
         ]);

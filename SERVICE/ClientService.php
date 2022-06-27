@@ -5,7 +5,7 @@ class ClientService
     /** @var IEntityCRUDDao */
     private $dao;
     //Dependency injection to make test easier
-    function __construct(IEntityCRUDDao $dependency)
+    function __construct(IEntityCRUDDao $dependency = null)
     {
         $this->dao = $dependency ?: new ClientDAOMySQL();
     }
