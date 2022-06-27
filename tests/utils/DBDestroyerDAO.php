@@ -23,5 +23,14 @@ class DBDestroyerDAO
         $this->dbConnection->query($sql);
         $this->dbConnection->query($sql2);
         $this->dbConnection->query($sql3);
+        $this->dbConnection->close();
+
+        $this->dbConnection = new Redis();
+        $this->dbConnection->connect("localhost", 6379);
+        $this->dbConnection->auth("");
+        $this->dbConnection->set("integrationTestcountry_lastId", 0);
+        $this->dbConnection->set("integrationTestclient_lastId", 0);
+        $this->dbConnection->set("integrationTestcountry_1", null);
+        $this->dbConnection->set("integrationTestclient_1", null);
     }
 }

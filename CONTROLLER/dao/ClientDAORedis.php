@@ -2,15 +2,26 @@
 
 class ClientDAORedis extends EntityCRUDDao
 {
+    //Define these in connection
+    /** @var string */
+    protected $key_prefix;
+    /** @var string */
+    protected $lastId;
     /** @var Redis */
     private $dbConnection;
+
     /** @var SysvSemaphore */
     private $mutex;
-    const KEY_PREFIX = "client_";
-    const LAST_ID = self::KEY_PREFIX . "lastId";
     const MUTEX_KEY = 57189238;
     function __construct()
     {
+        $this->connect();
+    }
+
+    protected function connect()
+    {
+        $this->key_prefix = "client_";
+        $this->lastId = $this->key_prefix . "lastId";
         $this->dbConnection = new Redis();
         $this->dbConnection->connect("localhost", 6379);
         $this->dbConnection->auth("");
@@ -19,7 +30,9 @@ class ClientDAORedis extends EntityCRUDDao
 
     public function getFromId(int $id): ?IClientDTO
     {
-        $value = $this->dbConnection->get(self::KEY_PREFIX . $id);
+        $value = $this->dbConnection->get($this->key_prefix . $id);
+        if (empty($value))
+            return null;
         $value = json_decode($value);
         return new ClientDTO($id, $value->name, $value->phone, (int)$value->countryId);
     }
@@ -33,27 +46,27 @@ class ClientDAORedis extends EntityCRUDDao
             "phone" => $client->getPhone(),
             "countryId" => $client->getCountryId()
         ]);
-        $this->dbConnection->set(self::KEY_PREFIX . ($this->getLastClientId() + 1), $client->jsonSerialize());
-        $this->dbConnection->incr(self::LAST_ID);
+        $this->dbConnection->set($this->key_prefix . ($this->getLastClientId() + 1), $client->jsonSerialize());
+        $this->dbConnection->incr($this->lastId);
         sem_release($this->mutex);
         return true;
     }
 
     private function getLastClientId(): int
     {
-        return $this->dbConnection->get(self::LAST_ID);
+        return $this->dbConnection->get($this->lastId);
     }
 
     public function delete(int $id)
     {
         sem_acquire($this->mutex);
-        $this->dbConnection->del(self::KEY_PREFIX . $id);
+        $this->dbConnection->del($this->key_prefix . $id);
         sem_release($this->mutex);
     }
     public function update(IClientDTO $updatedClient)
     {
         sem_acquire($this->mutex);
-        $this->save($updatedClient);
+        $this->dbConnection->set($this->key_prefix . $updatedClient->getId(), $updatedClient->jsonSerialize());
         sem_release($this->mutex);
     }
 
