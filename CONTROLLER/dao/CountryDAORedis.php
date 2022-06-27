@@ -1,6 +1,6 @@
 <?php
 
-class CountryDAORedis
+class CountryDAORedis implements IEntityCRUDDao
 {
     /** @var Redis */
     private $dbConnection;

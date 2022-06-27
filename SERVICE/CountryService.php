@@ -2,10 +2,12 @@
 
 class CountryService
 {
+    /** @var IEntityCRUDDao */
     private $dao;
-    function __construct()
+
+    function __construct(IEntityCRUDDao $dependency)
     {
-        $this->dao = new CountryDAOMySQL();
+        $this->dao = $dependency ?: new CountryDAOMySQL();
     }
     public function saveCountry(array $jsonSerializedCountry): bool
     {

@@ -1,6 +1,6 @@
 <?php
 
-class ClientDAOMySQL
+class ClientDAOMySQL implements IEntityCRUDDao
 {
     /**
      * @var mysqli

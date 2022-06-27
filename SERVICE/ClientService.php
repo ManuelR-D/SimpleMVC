@@ -2,10 +2,12 @@
 
 class ClientService
 {
+    /** @var IEntityCRUDDao */
     private $dao;
-    function __construct()
+    //Dependency injection to make test easier
+    function __construct(IEntityCRUDDao $dependency)
     {
-        $this->dao = new ClientDAOMySQL();
+        $this->dao = $dependency ?: new ClientDAOMySQL();
     }
     public function saveClient(array $jsonSerializedClient): bool
     {

@@ -1,33 +1,8 @@
 <?php
 
 require_once("{$_SERVER['DOCUMENT_ROOT']}/router.php");
+require_once("{$_SERVER['DOCUMENT_ROOT']}/autoloader.php");
 
-// ##################################################
-// ##################################################
-// ##################################################
-spl_autoload_register(function ($class_name) {
-
-    $dirs = array(
-        'START/',
-        'MODEL/',
-        'MODEL/dto/',
-        'MODEL/dto/interface/',
-        'CONTROLLER/',
-        'CONTROLLER/dao/',
-        'SERVICE/',
-        'factory/',
-        'api/',
-        'api/classes/',
-        'utils/'
-    );
-
-    foreach ($dirs as $dir) {
-        if (file_exists($dir . $class_name . '.php')) {
-            require_once($dir . $class_name . '.php');
-            return;
-        }
-    }
-});
 //CREATE
 post('/api/NewClient', "/api/NewClient.php");
 post('/api/NewCountry', "/api/NewCountry.php");
