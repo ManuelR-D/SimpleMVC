@@ -10,8 +10,8 @@ class Creator implements ICreator
     private $creatorsList;
     function __construct()
     {
-        $this->creatorsList[] = new ClientTableCreator();
         $this->creatorsList[] = new CountryTableCreator();
+        $this->creatorsList[] = new ClientTableCreator();
     }
     public function create(): void
     {

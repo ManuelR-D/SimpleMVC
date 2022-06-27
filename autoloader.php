@@ -27,7 +27,7 @@ spl_autoload_register(
                 'countrytablecreator' => '/START/CountryTableCreator.php',
                 'creator' => '/START/Creator.php',
                 'dbdestroyerdao' => '/tests/utils/DBDestroyerDAO.php',
-                'entitycruddao' => '/CONTROLLER/IEntityCRUDDao.php',
+                'entitycruddao' => '/CONTROLLER/EntityCRUDDao.php',
                 'factoryclient' => '/factory/FactoryClient.php',
                 'factorycountry' => '/factory/FactoryCountry.php',
                 'factorycountrytest' => '/tests/FactoryCountryTest.php',

@@ -8,7 +8,7 @@ class ClientDAORedis extends EntityCRUDDao
     /** @var string */
     protected $lastId;
     /** @var Redis */
-    private $dbConnection;
+    protected $dbConnection;
 
     /** @var SysvSemaphore */
     private $mutex;
@@ -70,7 +70,7 @@ class ClientDAORedis extends EntityCRUDDao
         sem_release($this->mutex);
     }
 
-    function __destruct()
+    protected function closeConnection()
     {
         $this->dbConnection->close();
         sem_remove($this->mutex);

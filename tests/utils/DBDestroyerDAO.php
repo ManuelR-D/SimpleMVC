@@ -32,5 +32,6 @@ class DBDestroyerDAO
         $this->dbConnection->set("integrationTestclient_lastId", 0);
         $this->dbConnection->set("integrationTestcountry_1", null);
         $this->dbConnection->set("integrationTestclient_1", null);
+        $this->dbConnection->close();
     }
 }

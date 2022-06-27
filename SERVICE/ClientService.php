@@ -2,7 +2,7 @@
 
 class ClientService
 {
-    /** @var IEntityCRUDDao */
+    /** @var EntityCRUDDao */
     private $dao;
     //Dependency injection to make test easier
     function __construct(EntityCRUDDao $dependency = null)

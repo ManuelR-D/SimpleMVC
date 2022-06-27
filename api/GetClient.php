@@ -1,6 +1,6 @@
 <?php
 
-$id = RequestParser::fromGetRequest("id");
+$id = $id ?: RequestParser::fromGetRequest("id");
 if (is_null($id)) {
     echo "BAD REQUEST";
     die;

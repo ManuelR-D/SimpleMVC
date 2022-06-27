@@ -8,6 +8,7 @@ post('/api/NewClient', "/api/NewClient.php");
 post('/api/NewCountry', "/api/NewCountry.php");
 //READ
 get('/api/GetClient', "/api/GetClient.php");
+get('/api/GetClient/$id', "/api/GetClient.php");
 get('/api/GetCountry', "/api/GetCountry.php");
 get('/api/GetAllCountries', "/api/GetAllCountries.php");
 //UPDATE
@@ -18,7 +19,6 @@ delete('/api/DeleteClient', "/api/DeleteClient.php");
 delete('/api/DeleteCountry', "/api/DeleteCountry.php");
 
 //VIEWS
-
 get('/ClientRegistration', '/VIEW/ClientRegistrator.html');
 get('/CountryRegistration', '/VIEW/CountryRegistrator.html');
 get('/ClientViewer', '/VIEW/ClientViewer.html');

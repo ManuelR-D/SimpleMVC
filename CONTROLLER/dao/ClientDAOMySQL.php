@@ -2,17 +2,10 @@
 
 class ClientDAOMySQL extends EntityCRUDDao
 {
-    /**
-     * @var mysqli
-     */
+    /** @var mysqli */
     protected $dbConnection;
-
     const DB = 'test';
     const TABLE = 'client';
-    public function __construct()
-    {
-        $this->connect();
-    }
 
     protected function connect()
     {
@@ -56,7 +49,7 @@ class ClientDAOMySQL extends EntityCRUDDao
         $this->dbConnection->query($sql);
     }
 
-    function __destruct()
+    protected function closeConnection()
     {
         $this->dbConnection->close();
     }

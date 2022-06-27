@@ -2,21 +2,13 @@
 
 class CountryDAOMySQL extends EntityCRUDDao
 {
-    /**
-     * @var mysqli
-     */
+    /** @var mysqli */
     protected $dbConnection;
-
     const DB = 'test';
     const TABLE = 'country';
-    public function __construct()
-    {
-        $this->connect();
-    }
 
     protected function connect()
     {
-
         $dbhost = "localhost";
         $dbuser = "root";
         $dbpass = "";
@@ -60,5 +52,10 @@ class CountryDAOMySQL extends EntityCRUDDao
         $sql = "SELECT * FROM " . self::TABLE;
         $result = $this->dbConnection->query($sql)->fetch_all();
         return !empty($result) ? $result : [];
+    }
+
+    protected function closeConnection()
+    {
+        $this->dbConnection->close();
     }
 }
