@@ -1,10 +1,10 @@
 <?php
 
-abstract class IEntityCRUDDao
+abstract class EntityCRUDDao
 {
     public abstract function getFromId(int $id);
     public abstract function delete(int $id);
-    //$object should be any DTO!
-    public abstract function save(object $object): bool;
-    public abstract function update(object $object);
+    //Replace IAnyDTO honoring the Liskov substitution!
+    public abstract function save(IAnyDTO $object): bool;
+    public abstract function update(IAnyDTO $object);
 }

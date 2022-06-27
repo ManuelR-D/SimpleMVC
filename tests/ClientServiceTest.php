@@ -7,7 +7,7 @@ class ClientServiceTest extends TestCase
     public function testGetClient()
     {
         $client = new ClientDTO(1, "John Doe", "123456", 1);
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(ClientDAOMySQL::class);
         $mockDao->method('getFromId')->willReturn($client);
         $mockDao->expects($this->exactly(1))->method('getFromId');
 
@@ -17,7 +17,7 @@ class ClientServiceTest extends TestCase
     }
     public function testSaveClient()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(ClientDAOMySQL::class);
         $mockDao->method('save')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('save');
 
@@ -30,7 +30,7 @@ class ClientServiceTest extends TestCase
     }
     public function testDeleteClient()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(ClientDAOMySQL::class);
         $mockDao->method('delete')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('delete');
 
@@ -39,7 +39,7 @@ class ClientServiceTest extends TestCase
     }
     public function testUpdateClient()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(ClientDAOMySQL::class);
         $mockDao->method('update')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('update');
 

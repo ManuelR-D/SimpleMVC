@@ -7,7 +7,7 @@ class CountryServiceTest extends TestCase
     public function testGetCountry()
     {
         $country = new CountryDTO(1, "Wonderland");
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(CountryDAOMySQL::class);
         $mockDao->method('getFromId')->willReturn($country);
         $mockDao->expects($this->exactly(1))->method('getFromId');
 
@@ -17,7 +17,7 @@ class CountryServiceTest extends TestCase
     }
     public function testSaveCountry()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(CountryDAOMySQL::class);
         $mockDao->method('save')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('save');
 
@@ -30,7 +30,7 @@ class CountryServiceTest extends TestCase
     }
     public function testDeleteCountry()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(CountryDAOMySQL::class);
         $mockDao->method('delete')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('delete');
 
@@ -39,7 +39,7 @@ class CountryServiceTest extends TestCase
     }
     public function testUpdateCountry()
     {
-        $mockDao = $this->createMock(IEntityCRUDDao::class);
+        $mockDao = $this->createMock(CountryDAOMySQL::class);
         $mockDao->method('update')->willReturn(true);
         $mockDao->expects($this->exactly(1))->method('update');
 

@@ -1,16 +1,22 @@
 <?php
 
-class CountryDAOMySQL extends IEntityCRUDDao
+class CountryDAOMySQL extends EntityCRUDDao
 {
     /**
      * @var mysqli
      */
-    private $dbConnection;
+    protected $dbConnection;
 
     const DB = 'test';
     const TABLE = 'country';
     public function __construct()
     {
+        $this->connect();
+    }
+
+    protected function connect()
+    {
+
         $dbhost = "localhost";
         $dbuser = "root";
         $dbpass = "";

@@ -5,7 +5,7 @@ class CountryService
     /** @var IEntityCRUDDao */
     private $dao;
 
-    function __construct(IEntityCRUDDao $dependency = null)
+    function __construct(EntityCRUDDao $dependency = null)
     {
         $this->dao = $dependency ?: new CountryDAOMySQL();
     }

@@ -1,15 +1,20 @@
 <?php
 
-class ClientDAOMySQL extends IEntityCRUDDao
+class ClientDAOMySQL extends EntityCRUDDao
 {
     /**
      * @var mysqli
      */
-    private $dbConnection;
+    protected $dbConnection;
 
     const DB = 'test';
     const TABLE = 'client';
     public function __construct()
+    {
+        $this->connect();
+    }
+
+    protected function connect()
     {
         $dbhost = "localhost";
         $dbuser = "root";
@@ -17,7 +22,6 @@ class ClientDAOMySQL extends IEntityCRUDDao
 
         $this->dbConnection = new mysqli($dbhost, $dbuser, $dbpass, self::DB, 3306);
     }
-
     public function getFromId(int $id): ?IClientDTO
     {
         $sql = "SELECT * FROM " . self::TABLE . " WHERE id = '" . $id . "';";
@@ -49,7 +53,11 @@ class ClientDAOMySQL extends IEntityCRUDDao
             . " phone = '" . $updatedClient->getPhone() . "',"
             . " countryId = '" . $updatedClient->getCountryId() . "'"
             . " WHERE id = '" . $updatedClient->getId() . "';";
-        echo $sql;
         $this->dbConnection->query($sql);
+    }
+
+    function __destruct()
+    {
+        $this->dbConnection->close();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class ClientDAORedis extends IEntityCRUDDao
+class ClientDAORedis extends EntityCRUDDao
 {
     /** @var Redis */
     private $dbConnection;
